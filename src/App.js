@@ -1,9 +1,27 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
+import logo from './assets/icons/pokeball.png';
 import './App.css';
 import { connect } from 'react-redux'
 
 import {FETCH_LIST_OF_POKEMONS} from './store/actions/defaultActions';
+
+function Item({value, index}) {
+  return (
+      <a className={"list-of-Pokemons"}>
+        <div className={"button-to-detail"}>
+          {value.name}
+        </div>
+      </a>
+  );
+}
+
+function MyList({items}) {
+  return (
+      <>
+        {items.map((item, index) => <Item key={item.name} value={item} index={index+1} />)}
+      </>
+  );
+}
 
 class App extends Component {
   componentDidMount() {
@@ -16,16 +34,9 @@ class App extends Component {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p>
-              Edit <code>src/App.js</code> and save to reload.
+              Showing {this.props.default.listOfPokemons.length} of {this.props.default.countOfPokemons} Pokemons
             </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-              Learn React {this.props.default.listOfPokemons.length}
-            </a>
+            <MyList items={this.props.default.listOfPokemons} />
           </header>
         </div>
     );

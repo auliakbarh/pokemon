@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -35,4 +35,54 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.list-of-Pokemons {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 0 auto;
+  border: 0px solid whitesmoke;
+  padding: 8px;
+  text-align: center;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.button-to-detail {
+  color: #FFF;
+  transition: all 0.5s;
+  position: relative;
+  padding: 8px;
+}
+.button-to-detail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.1);
+  transition: all 0.3s;
+}
+.button-to-detail:hover::before {
+  opacity: 0 ;
+  transform: scale(0.5,0.5);
+}
+.button-to-detail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.5);
+  transform: scale(1.2,1.2);
+}
+.button-to-detail:hover::after {
+  opacity: 1;
+  transform: scale(1,1);
 }
