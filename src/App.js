@@ -1,114 +1,31 @@
-import React, {Component} from 'react';
-import logo from './assets/icons/pokeball.png';
-import './App.css';
-import { connect } from 'react-redux'
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
-import {FETCH_LIST_OF_POKEMONS} from './store/actions/defaultActions';
+import ListPokemons from "./views/listPokemons";
+import DetailPokemon from "./views/detailPokemon";
+import MyPokemons from "./views/myPokemons";
 
-import ScrollButton from "./components/scrollButton";
-
-function Item({value, width}) {
-  const listOfPokemons = {
-    display: 'block',
-    border: '0 solid whitesmoke',
-    padding: '2px',
-    textAlign: 'center',
-    textTransform: 'capitalize',
-    cursor: 'pointer',
-    width: width * 0.5
-  };
+export default function App() {
   return (
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      <a style={listOfPokemons}>
-        <div className={"button-to-detail"}>
-          {value.name}
-        </div>
-      </a>
+      <Router>
+        <ModalSwitch />
+      </Router>
   );
 }
 
-function MyList({items, width, height}) {
+function ModalSwitch() {
   return (
-      <>
-        {items.map((item, index) => <Item key={item.name} value={item} index={index+1} width={width} height={height} />)}
-      </>
+      <div>
+        <Switch>
+          <Route exact path="/" children={<ListPokemons />} />
+          <Route path="/detail/:id" children={<DetailPokemon />} />
+          <Route path="/catched" children={<MyPokemons />} />
+        </Switch>
+      </div>
   );
 }
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { height: 512, width: 0 };
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-  }
-
-  componentDidMount() {
-    const {listOfPokemons} = this.props.default;
-
-    this.updateWindowDimensions();
-    window.addEventListener("resize", this.updateWindowDimensions.bind(this));
-
-    document.addEventListener('scroll', this.trackScrolling);
-    this.props.fetchListOfPokemons(listOfPokemons.length);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateWindowDimensions.bind(this));
-    document.removeEventListener('scroll', this.trackScrolling);
-  }
-
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  }
-
-  isBottom(el) {
-    return el.getBoundingClientRect().bottom <= window.innerHeight;
-  }
-
-  trackScrolling = () => {
-    const {listOfPokemons, countOfPokemons} = this.props.default;
-    const wrappedElement = document.getElementById('root');
-
-    if (this.isBottom(wrappedElement)) {
-      if(listOfPokemons.length === countOfPokemons){
-        document.removeEventListener('scroll', this.trackScrolling);
-      }else{
-        console.log('bottom reached');
-        this.props.fetchListOfPokemons(listOfPokemons.length);
-      }
-
-    }
-  };
-
-  render(){
-    const {listOfPokemons, countOfPokemons} = this.props.default;
-    const {width, height} = this.state;
-
-    return (
-        <div className="App">
-          <header className="App-header">
-            <div className="pokeball"><img src={logo} className="App-logo" alt="logo" /></div>
-            <p>
-              Showing {listOfPokemons.length} of {countOfPokemons} Pokemons
-            </p>
-            <MyList items={listOfPokemons} width={width} height={height} />
-            <ScrollButton scrollStepInPx="50" delayInMs="16.66"/>
-          </header>
-        </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => ({
-  default: state.default
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchListOfPokemons: (offset) => dispatch(FETCH_LIST_OF_POKEMONS(offset))
-});
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
