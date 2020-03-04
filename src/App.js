@@ -43,11 +43,13 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const {listOfPokemons} = this.props.default;
+
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions.bind(this));
 
     document.addEventListener('scroll', this.trackScrolling);
-    this.props.fetchListOfPokemons(this.props.default.listOfPokemons.length);
+    this.props.fetchListOfPokemons(listOfPokemons.length);
   }
 
   componentWillUnmount() {
@@ -64,27 +66,32 @@ class App extends Component {
   }
 
   trackScrolling = () => {
+    const {listOfPokemons, countOfPokemons} = this.props.default;
     const wrappedElement = document.getElementById('root');
+
     if (this.isBottom(wrappedElement)) {
-      if(this.props.default.listOfPokemons.length === this.props.default.countOfPokemons){
+      if(listOfPokemons.length === countOfPokemons){
         document.removeEventListener('scroll', this.trackScrolling);
       }else{
         console.log('bottom reached');
-        this.props.fetchListOfPokemons(this.props.default.listOfPokemons.length);
+        this.props.fetchListOfPokemons(listOfPokemons.length);
       }
 
     }
   };
 
   render(){
+    const {listOfPokemons, countOfPokemons} = this.props.default;
+    const {width, height} = this.state;
+
     return (
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p>
-              Showing {this.props.default.listOfPokemons.length} of {this.props.default.countOfPokemons} Pokemons
+              Showing {listOfPokemons.length} of {countOfPokemons} Pokemons
             </p>
-            <MyList items={this.props.default.listOfPokemons} width={this.state.width} height={this.state.height} />
+            <MyList items={listOfPokemons} width={width} height={height} />
             <ScrollButton scrollStepInPx="50" delayInMs="16.66"/>
           </header>
         </div>
