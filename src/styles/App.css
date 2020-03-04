@@ -89,3 +89,13 @@
   opacity: 1;
   transform: scale(1,1);
 }
+
+.pokemon-name {
+  display: block;
+  padding: 0px 16px;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: xx-large;
+  margin: 0;
+}
