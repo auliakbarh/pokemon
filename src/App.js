@@ -87,7 +87,7 @@ class App extends Component {
     return (
         <div className="App">
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
+            <div className="pokeball"><img src={logo} className="App-logo" alt="logo" /></div>
             <p>
               Showing {listOfPokemons.length} of {countOfPokemons} Pokemons
             </p>
