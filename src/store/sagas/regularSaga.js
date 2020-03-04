@@ -44,13 +44,13 @@ function* fetchingDetailOfPokemon({id}) {
 
   try{
     if(response){
-      let {name, height, weight, types, sprites, order} = response;
+      let {name, height, weight, types, sprites, order, moves} = response;
       height = (height * 0.1).toFixed(2) + ' m';
       weight = (weight * 0.45359237).toFixed(2) + ' kg';
 
       yield put({
         type: actionType.FETCH_DETAIL_OF_POKEMON_SUCCESS,
-        payload: {name, height, weight, types, sprites, order}
+        payload: {name, height, weight, types, sprites, order, moves}
       })
     }else{
       yield put({
