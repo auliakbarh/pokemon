@@ -1,0 +1,19 @@
+.scroll {
+    background-color: rgba(165, 89, 90, 0.56);
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 5px;
+    border: none;
+    color: #FFFFFF;
+}
+
+.scroll:hover {
+    opacity: 1;
+}
+
+.arrow-up {
+    color: white;
+}

@@ -5,9 +5,21 @@ import { connect } from 'react-redux'
 
 import {FETCH_LIST_OF_POKEMONS} from './store/actions/defaultActions';
 
-function Item({value, index}) {
+import ScrollButton from "./components/scrollButton";
+
+function Item({value, width}) {
+  const listOfPokemons = {
+    display: 'block',
+    border: '0 solid whitesmoke',
+    padding: '2px',
+    textAlign: 'center',
+    textTransform: 'capitalize',
+    cursor: 'pointer',
+    width: width * 0.5
+  };
   return (
-      <a className={"list-of-Pokemons"}>
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+      <a style={listOfPokemons}>
         <div className={"button-to-detail"}>
           {value.name}
         </div>
@@ -15,18 +27,54 @@ function Item({value, index}) {
   );
 }
 
-function MyList({items}) {
+function MyList({items, width, height}) {
   return (
       <>
-        {items.map((item, index) => <Item key={item.name} value={item} index={index+1} />)}
+        {items.map((item, index) => <Item key={item.name} value={item} index={index+1} width={width} height={height} />)}
       </>
   );
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { height: 512, width: 0 };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
   componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions.bind(this));
+
+    document.addEventListener('scroll', this.trackScrolling);
     this.props.fetchListOfPokemons(this.props.default.listOfPokemons.length);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions.bind(this));
+    document.removeEventListener('scroll', this.trackScrolling);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+  isBottom(el) {
+    return el.getBoundingClientRect().bottom <= window.innerHeight;
+  }
+
+  trackScrolling = () => {
+    const wrappedElement = document.getElementById('root');
+    if (this.isBottom(wrappedElement)) {
+      if(this.props.default.listOfPokemons.length === this.props.default.countOfPokemons){
+        document.removeEventListener('scroll', this.trackScrolling);
+      }else{
+        console.log('bottom reached');
+        this.props.fetchListOfPokemons(this.props.default.listOfPokemons.length);
+      }
+
+    }
+  };
 
   render(){
     return (
@@ -36,7 +84,8 @@ class App extends Component {
             <p>
               Showing {this.props.default.listOfPokemons.length} of {this.props.default.countOfPokemons} Pokemons
             </p>
-            <MyList items={this.props.default.listOfPokemons} />
+            <MyList items={this.props.default.listOfPokemons} width={this.state.width} height={this.state.height} />
+            <ScrollButton scrollStepInPx="50" delayInMs="16.66"/>
           </header>
         </div>
     );

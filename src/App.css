@@ -39,9 +39,8 @@
 
 .list-of-Pokemons {
   display: block;
-  width: calc(100% - 32px);
   margin: 0 auto;
-  border: 0px solid whitesmoke;
+  border: 0 solid whitesmoke;
   padding: 8px;
   text-align: center;
   text-transform: capitalize;
