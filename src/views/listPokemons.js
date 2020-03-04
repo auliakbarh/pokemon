@@ -3,6 +3,7 @@ import logo from '../assets/icons/pokeball.png';
 import '../styles/App.css';
 import { connect } from 'react-redux'
 import {Link} from "react-router-dom";
+import { withRouter } from "react-router";
 
 import {FETCH_LIST_OF_POKEMONS} from '../store/actions/defaultActions';
 
@@ -111,7 +112,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(ListPokemons);
+)(ListPokemons));
