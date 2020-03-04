@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
             };
         case actionTypes.FETCH_LIST_POKEMON:
         case actionTypes.FETCH_DETAIL_OF_POKEMON:
-            console.log('hehe')
             return {
                 ...state,
                 isLoading: true,
