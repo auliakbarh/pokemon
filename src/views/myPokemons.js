@@ -19,7 +19,7 @@ function Item({value, width, onClick}) {
         textAlign: 'center',
         textTransform: 'capitalize',
         cursor: 'pointer',
-        width: width * 0.5
+        width: width * 0.7
     };
     return (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -32,7 +32,7 @@ function Item({value, width, onClick}) {
                         justifyContent: 'flex-start',
                         alignItems: 'center'
                     }}>
-                        <img src={value.sprites.front_default}/>
+                        <img src={value.sprites.front_default} style={{width: 50, height: 50, marginRight: 12}} alt={'value.id'}/>
 
                         <div style={{
                             display: 'flex',
