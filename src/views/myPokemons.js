@@ -57,7 +57,7 @@ function Item({value, width}) {
 function MyList({items, width, height}) {
     return (
         <>
-            {items.map((item, index) => <Item key={item.name} value={item} index={index + 1} width={width}
+            {items.map((item, index) => <Item key={item.id} value={item} index={index + 1} width={width}
                                               height={height}/>)}
         </>
     );
