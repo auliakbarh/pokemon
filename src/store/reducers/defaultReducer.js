@@ -45,6 +45,13 @@ export default (state = initialState, action) => {
                 ...state,
                 myPokemons: state.myPokemons.concat(action.payload)
             };
+        case actionTypes.RELEASE_POKEM0N_BY_ID:
+            return {
+                ...state,
+                myPokemons: state.myPokemons.filter(function( obj ) {
+                    return obj.id !== action.id;
+                })
+            };
         default:
             return state
     }

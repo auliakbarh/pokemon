@@ -7,3 +7,4 @@ export const FETCH_DETAIL_OF_POKEMON_SUCCESS = 'fetching detail of pokemon by id
 export const FETCH_DETAIL_OF_POKEMON_FAILED = 'fetching detail of pokemon by id failed';
 
 export const CATCH_POKEMON_SUCCESS = 'Success catch pokemon';
+export const RELEASE_POKEM0N_BY_ID = 'Release pokemon by id';
