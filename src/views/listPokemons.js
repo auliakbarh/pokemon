@@ -98,7 +98,7 @@ class ListPokemons extends Component {
                     </p>
                     <MyList items={listOfPokemons} width={width} height={height} />
                     <ScrollButton scrollStepInPx="50" delayInMs="16.66"/>
-                    <MyPokedex />
+                    <MyPokedex onClick={() => this.props.history.push("/catched")} />
                 </header>
             </div>
         );
