@@ -15,7 +15,7 @@ class DetailPokemon extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chances: 1,
+            chances: 3,
             showModal: false,
             showButton: true,
             nickname: ''
