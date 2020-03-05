@@ -35,7 +35,8 @@ class DetailPokemon extends Component {
 
     confirmHandler = (detailPokemon) => {
         const {nickname} = this.state;
-        this.props.addPokemonToPokedex({...detailPokemon, nickname});
+        const {myPokemons} = this.props.default;
+        this.props.addPokemonToPokedex({...detailPokemon, nickname, id: myPokemons.length+1});
         this.showModal(false);
         this.props.history.push("/");
     };
