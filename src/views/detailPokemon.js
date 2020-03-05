@@ -43,8 +43,8 @@ class DetailPokemon extends Component {
 
     catchPokemon = (name) => {
         // %50 probability of get "true"
-        // const result = Math.random() >= 0.5;
-        const result = true;
+        const result = Math.random() >= 0.5;
+        // const result = true;
         const {chances} = this.state;
 
         if(chances > 0){
