@@ -8,13 +8,16 @@ import '../styles/buttonCatchCSS.css';
 
 import {FETCH_DETAIL_OF_POKEMON} from '../store/actions/defaultActions';
 import Loading from "../components/loading";
+import Modal from "../components/modal";
 
 
 class DetailPokemon extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chances: 1
+            chances: 1,
+            showModal: false,
+            showButton: true
         };
     }
 
@@ -24,6 +27,15 @@ class DetailPokemon extends Component {
         const {id} = match.params;
         this.props.fetchDetailPokemon(id);
     }
+
+    showModal = showModal => {
+        this.setState({showModal});
+    };
+
+    confirmHandler = () => {
+        this.showModal(false);
+        this.props.history.push("/");
+    };
 
     catchPokemon = (name) => {
         // %50 probability of get "true"
@@ -38,12 +50,14 @@ class DetailPokemon extends Component {
                 })
             }else{
                 alert('Gotha!');
+                this.setState({showButton: false});
+                this.showModal(true)
             }
         }else if(chances === 0){
             alert(`${name[0].toUpperCase()}${name.slice(1,name.length)} fled away.`);
             this.setState({
                 chances: chances - 1
-            })
+            });
             this.props.history.push("/");
         }else{
             console.log('nothing todo');
@@ -102,9 +116,13 @@ class DetailPokemon extends Component {
                             </div>
                         </div>
 
-                        {this.state.chances >= 0 ? <div className={"button"} onClick={() => this.catchPokemon(name)}>Catch!</div> : null}
+                        {this.state.chances >= 0 && this.state.showButton ? <div className={"button"} onClick={() => this.catchPokemon(name)}>Catch!</div> : null}
 
                         <div style={{marginBottom: 24}} />
+
+                        <Modal onClose={() => this.confirmHandler()} show={this.state.showModal} title={"Set Nickname"} labelButton={"Confirm"}>
+                            <input type={"text"}/>
+                        </Modal>
                     </header>
                 </div>
             );
