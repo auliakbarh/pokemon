@@ -8,6 +8,7 @@ import { withRouter } from "react-router";
 import {FETCH_LIST_OF_POKEMONS} from '../store/actions/defaultActions';
 
 import ScrollButton from "../components/scrollButton";
+import MyPokedex from "../components/myPokedex";
 
 function Item({value, width}) {
     const listOfPokemons = {
@@ -97,6 +98,7 @@ class ListPokemons extends Component {
                     </p>
                     <MyList items={listOfPokemons} width={width} height={height} />
                     <ScrollButton scrollStepInPx="50" delayInMs="16.66"/>
+                    <MyPokedex />
                 </header>
             </div>
         );
