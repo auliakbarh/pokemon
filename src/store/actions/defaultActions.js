@@ -1,4 +1,5 @@
 import * as actionTypes from './actionNames';
+import detailPokemon from "../../views/detailPokemon";
 
 export const FETCH_LIST_OF_POKEMONS = offset => ({
     type: actionTypes.FETCH_LIST_POKEMON,
@@ -8,4 +9,9 @@ export const FETCH_LIST_OF_POKEMONS = offset => ({
 export const FETCH_DETAIL_OF_POKEMON = id => ({
     type: actionTypes.FETCH_DETAIL_OF_POKEMON,
     id
+});
+
+export const SUCCESS_CACTH_POKEMON = (detailPokemon) => ({
+    type: actionTypes.CATCH_POKEMON_SUCCESS,
+    payload: detailPokemon
 });

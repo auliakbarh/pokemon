@@ -6,7 +6,7 @@ import { withRouter } from "react-router";
 import colorTypes from '../const/colorTypes';
 import '../styles/buttonCatchCSS.css';
 
-import {FETCH_DETAIL_OF_POKEMON} from '../store/actions/defaultActions';
+import {FETCH_DETAIL_OF_POKEMON, SUCCESS_CACTH_POKEMON} from '../store/actions/defaultActions';
 import Loading from "../components/loading";
 import Modal from "../components/modal";
 
@@ -17,7 +17,8 @@ class DetailPokemon extends Component {
         this.state = {
             chances: 1,
             showModal: false,
-            showButton: true
+            showButton: true,
+            nickname: ''
         };
     }
 
@@ -32,14 +33,17 @@ class DetailPokemon extends Component {
         this.setState({showModal});
     };
 
-    confirmHandler = () => {
+    confirmHandler = (detailPokemon) => {
+        const {nickname} = this.state;
+        this.props.addPokemonToPokedex({...detailPokemon, nickname});
         this.showModal(false);
         this.props.history.push("/");
     };
 
     catchPokemon = (name) => {
         // %50 probability of get "true"
-        const result = Math.random() >= 0.5;
+        // const result = Math.random() >= 0.5;
+        const result = true;
         const {chances} = this.state;
 
         if(chances > 0){
@@ -63,6 +67,10 @@ class DetailPokemon extends Component {
             console.log('nothing todo');
         }
     };
+
+    handleChangeNickname = (event) =>{
+        this.setState({nickname: event.target.value});
+    }
 
     render(){
         const {detailPokemon, isSuccess} = this.props.default;
@@ -120,8 +128,8 @@ class DetailPokemon extends Component {
 
                         <div style={{marginBottom: 24}} />
 
-                        <Modal onClose={() => this.confirmHandler()} show={this.state.showModal} title={"Set Nickname"} labelButton={"Confirm"}>
-                            <input type={"text"}/>
+                        <Modal onClose={() => this.confirmHandler({name, height, weight, types, sprites, order, moves})} show={this.state.showModal} title={"Set Nickname"} labelButton={"Confirm"}>
+                            <input type={"text"} value={this.state.nickname} onChange={(event) => this.handleChangeNickname(event)}/>
                         </Modal>
                     </header>
                 </div>
@@ -139,7 +147,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchDetailPokemon: id => dispatch(FETCH_DETAIL_OF_POKEMON(id))
+    fetchDetailPokemon: id => dispatch(FETCH_DETAIL_OF_POKEMON(id)),
+    addPokemonToPokedex: detailPokemon => dispatch(SUCCESS_CACTH_POKEMON(detailPokemon))
 });
 
 

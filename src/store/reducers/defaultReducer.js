@@ -40,6 +40,11 @@ export default (state = initialState, action) => {
                 isLoading: false,
                 isSuccess: true
             };
+        case actionTypes.CATCH_POKEMON_SUCCESS:
+            return {
+                ...state,
+                myPokemons: state.myPokemons.concat(action.payload)
+            };
         default:
             return state
     }
