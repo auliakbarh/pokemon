@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import '../styles/myPokedexCSS.css';
+import '../styles/floatinNavButtonCSS.css';
 import pokedex from "../assets/icons/pokedex.png";
 
-export default class MyPokedex extends Component {
+export default class FloatingNavButton extends Component {
     render () {
-        return <img src={pokedex} alt="my-pokedex" title='My Pokedex' className='pokedex'
+        return <img src={this.props.image ? this.props.image : pokedex} alt="my-pokedex" title='My Pokedex' className='pokedex'
                        onClick={this.props.onClick ? this.props.onClick : () => console.log('My pokedex clicked')
                        } />
     }
