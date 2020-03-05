@@ -8,6 +8,7 @@
     border-radius: 360px;
     border: none;
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .pokedex:hover {
