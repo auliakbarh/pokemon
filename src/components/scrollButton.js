@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../styles/scrollButtonCSS.css';
+import arrowUp from '../assets/icons/arrow-up.png';
 
 export default class ScrollButton extends Component {
     constructor() {
@@ -23,9 +24,7 @@ export default class ScrollButton extends Component {
     }
 
     render () {
-        return <button title='Back to top' className='scroll'
-                       onClick={ () => { this.scrollToTop(); }}>
-            Up
-        </button>;
+        return <img src={arrowUp} alt={"Scroll to top"} title='Scroll to top' className='scroll'
+                       onClick={ () => { this.scrollToTop(); }} />;
     }
 }
