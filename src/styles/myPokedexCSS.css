@@ -1,0 +1,16 @@
+.pokedex {
+    background-color: rgba(255, 255, 255, 0);
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 60px;
+    right: 10px;
+    border-radius: 360px;
+    border: none;
+    color: #FFFFFF;
+}
+
+.pokedex:hover {
+    opacity: 1;
+}
+
